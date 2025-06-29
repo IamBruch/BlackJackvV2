@@ -1,0 +1,25 @@
+/Card:
+    ->Suit, number
+    ->constructor
+
+/Deck
+    -> vector<Cards>
+    -> constructor
+
+/PlayerHand
+    -> constructor
+    -> sum, vector<Hand>
+    -> getSum
+    -> drawCard
+    -> showHand
+
+/DealerHand :: PlayerHand
+    -> constructor
+
+/Game
+
+    ->initializeDeck
+    ->playerTurn
+    ->DealerTurn
+    ->PlayerWin
+    ->DealerWin
