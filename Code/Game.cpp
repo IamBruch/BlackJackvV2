@@ -7,6 +7,7 @@
 
 Game::Game() : gameRunning(false) {
     initializeDeck();
+    playerHand.plusChips(100);
 }
 
 void Game::initializeDeck() {
@@ -15,12 +16,29 @@ void Game::initializeDeck() {
 
 void Game::startGame(){
     gameRunning = true;
+    char choice;
+    if (!isLoggedin) {
+        dataManager.login();
+        isLoggedin = true;
+
+        std::cout << "Do u want to gamble? (y/n): ";
+        std::cin >> choice;
+    }
 
     playerHand.hit(deck);
     dealerHand.hit(deck);
     playerHand.hit(deck);
     dealerHand.hit(deck);
 
+
+
+    if (choice == 'y') {
+        isBet = true;
+        std::cout << "Enter bet amount: ";
+        int betAmount;
+        std::cin >> betAmount;
+        bet(betAmount);
+    }
 
     std::cout << "Your cards: ";
     playerHand.showHand();
@@ -29,8 +47,15 @@ void Game::startGame(){
     loop();
 }
 
-void Game::bet(int amount) {
+bool Game::bet(int amount) {
+    if (amount > playerHand.getChips()) {
+        std::cout << "You don't have enough chips to bet that amount!" << std::endl;
+        return false;
+    }
 
+    playerHand.minusChips(amount);
+    betAmount = amount;
+    return true;
 }
 
 void Game::playerTurn(){
@@ -84,6 +109,14 @@ void Game::loop(){
 
 void Game::playerWin() {
     std::cout << "You win!" << std::endl;
+    if (isBet) {
+        betAmount = betAmount * 2;
+        playerHand.plusChips(betAmount);
+    }
+
+    std::cout << "You won " << betAmount << " chips." << std::endl;
+    std::cout << "Your remaining chips: " << playerHand.getChips() << std::endl;
+
     if (playAgain()) {
         startGame();
     } else {
@@ -93,6 +126,12 @@ void Game::playerWin() {
 
 void Game::dealerWin(){
     std::cout << "Dealer win!" << std::endl;
+    if (isBet) {
+        betAmount = 0; // Player loses the bet
+    }
+    std::cout << "You lost " << betAmount << " chips." << std::endl;
+    std::cout << "Your remaining chips: " << playerHand.getChips() << std::endl;
+
     if (playAgain()) {
         startGame();
     } else {

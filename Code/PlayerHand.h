@@ -19,6 +19,11 @@ public:
     explicit PlayerHand(int amountOfChips);
 
     int getSum() const;
+
+    int getChips() const;
+    int minusChips(int amount);
+    int plusChips(int amount);
+
     void showHand() const;
     void clearHand();
 

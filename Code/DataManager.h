@@ -8,10 +8,10 @@
 #include <string>
 
 class DataManager {
+    bool newUser = false;
 public:
-    bool registerUser(const std::string& name, const std::string& password);
-    bool loginUser(const std::string& name, const std::string& password, int& score);
-    bool updateScore(const std::string& name, int newScore);
+    void login();
+    bool findUser(const std::string& name, std::string& password, int& score);
 };
 
 

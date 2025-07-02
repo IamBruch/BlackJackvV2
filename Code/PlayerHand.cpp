@@ -12,6 +12,22 @@ PlayerHand::PlayerHand(int amountOfChips) : sumOfCards(0), chips(amountOfChips) 
 
 int PlayerHand::getSum() const {return sumOfCards;}
 
+int PlayerHand::getChips() const {return chips;}
+
+int PlayerHand::minusChips(int amount) {
+    if (amount > chips) {
+        std::cout << "ERROR: Not enough chips to lose!" << std::endl;
+        return chips;
+    }
+    chips -= amount;
+    return chips;
+}
+
+int PlayerHand::plusChips(int amount) {
+    chips += amount;
+    return chips;
+}
+
 void PlayerHand::showHand() const {
     std::cout << std::endl;
     for (Card c : handCards){

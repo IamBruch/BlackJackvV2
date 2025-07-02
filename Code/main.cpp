@@ -1,11 +1,11 @@
 #include <iostream>
 #include "Game.h"
+#include <string>
 
 
 
 
 int main(){
-
     
     Game game;
     game.startGame();
