@@ -6,15 +6,23 @@
 
 #include <iostream>
 
-PlayerHand::PlayerHand() : sumOfCards(0) {}
+PlayerHand::PlayerHand() : sumOfCards(0), chips(0) {}
+
+PlayerHand::PlayerHand(int amountOfChips) : sumOfCards(0), chips(amountOfChips) {}
 
 int PlayerHand::getSum() const {return sumOfCards;}
 
 void PlayerHand::showHand() const {
-    std::cout << "Your hand: " << std::endl;
+    std::cout << std::endl;
     for (Card c : handCards){
         std::cout << c.toString() << std::endl;
     }
+    std::cout << std::endl;
+}
+
+void PlayerHand::clearHand() {
+    handCards.clear();
+    sumOfCards = 0;
 }
 
 void PlayerHand::hit(Deck& deck){

@@ -19,11 +19,14 @@ public:
     Game();
     void initializeDeck();
     void startGame();
+    void bet(int amount);
+
     void playerTurn();
     void dealerTurn();
     void loop();
     void playerWin();
     void dealerWin();
+    bool playAgain();
 
 };
 

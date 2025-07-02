@@ -29,6 +29,10 @@ void Game::startGame(){
     loop();
 }
 
+void Game::bet(int amount) {
+
+}
+
 void Game::playerTurn(){
     char choice;
     bool playerTurnEnd = false;
@@ -78,12 +82,34 @@ void Game::loop(){
     }
 }
 
-void Game::playerWin(){
+void Game::playerWin() {
     std::cout << "You win!" << std::endl;
-    gameRunning = false;
+    if (playAgain()) {
+        startGame();
+    } else {
+        gameRunning = false;
+    }
 }
 
 void Game::dealerWin(){
     std::cout << "Dealer win!" << std::endl;
-    gameRunning = false;
+    if (playAgain()) {
+        startGame();
+    } else {
+        gameRunning = false;
+    }
+}
+
+bool Game::playAgain() {
+    std::cout << "Do you want to play again? (y/n): ";
+    char choice;
+    std::cin >> choice;
+
+    if (choice) {
+        playerHand.clearHand();
+        dealerHand.clearHand();
+        return true;
+    } else {
+        return false;
+    }
 }
